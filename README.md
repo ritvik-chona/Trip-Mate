@@ -1,16 +1,62 @@
-# React + Vite
+✈️ TripMate — Smart Trip Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TripMate is a full-stack web application that helps users plan and manage trips efficiently. It provides a centralized platform to create itineraries, track expenses, and manage trips with secure authentication and real-time data storage.
 
-Currently, two official plugins are available:
+📌 Problem Statement
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Planning a trip often involves multiple tools like notes, spreadsheets, and apps, leading to poor organization and overspending.
 
-## React Compiler
+TripMate solves this by:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Providing a single dashboard to manage all trips
+Allowing structured day-wise itinerary planning
+Tracking expenses against a defined budget
+Ensuring secure and persistent user data
+✨ Features
+🔐 User Authentication (Firebase Auth)
+🗺️ Trip Dashboard (create, view, delete trips)
+🗓️ Day-wise Itinerary Builder
+💰 Budget & Expense Tracker
+📊 Category-wise expense breakdown
+⚡ Real-time database updates (Firestore)
+🔒 Secure user-specific data access
+🛠️ Tech Stack
+Frontend: React (Vite)
+Styling: Tailwind CSS
+Routing: React Router
+Authentication: Firebase Auth
+Database: Firebase Firestore
+Deployment: Vercel
+📁 Project Structure
+src/
+├── components/
+├── pages/
+├── context/
+├── services/
+└── hooks/
+⚙️ Setup Instructions
+1. Clone the Repository
+git clone https://github.com/YOUR_USERNAME/tripmate.git
+cd tripmate
+2. Install Dependencies
+npm install
+3. Configure Firebase
+Create a Firebase project
+Enable Email/Password Authentication
+Create Firestore Database
+Add your Firebase config in src/services/firebase.js
+4. Run the Application
+npm run dev
+🌐 Live Deployment
 
-## Expanding the ESLint configuration
+https://your-vercel-link.vercel.app
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🎥 Demo Video
+
+Duration: 3–5 minutes
+
+
+👨‍💻 Author
+Ritvik Chona
+Roll No. 10500
+Group B (Batch-2029)
