@@ -12,6 +12,19 @@ const fields = [
   { label: "Total budget (₹)", name: "budget", type: "number", placeholder: "e.g. 15000" },
 ]
 
+const inputStyle = {
+  width: "100%",
+  background: "#13121f",
+  border: "1px solid rgba(255,255,255,0.1)",
+  borderRadius: 10,
+  padding: "11px 14px",
+  fontSize: 14,
+  color: "#f0eeff",
+  outline: "none",
+  transition: "border-color 0.15s",
+  fontFamily: "Inter, sans-serif"
+}
+
 export default function CreateTrip() {
   const { currentUser } = useAuth()
   const navigate = useNavigate()
@@ -32,42 +45,61 @@ export default function CreateTrip() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f0e17]">
+    <div style={{ minHeight: "100vh", background: "#0f0e17" }}>
       <Navbar />
+      <div style={{ maxWidth: 520, margin: "0 auto", padding: "48px 24px" }}>
 
-      <div className="max-w-xl mx-auto px-4 md:px-6 py-8 md:py-12">
-
-        {/* Back Button */}
         <button
           onClick={() => navigate("/dashboard")}
-          className="text-xs md:text-sm text-[#5e5c78] hover:text-[#9b98b8] flex items-center gap-2 mb-6 md:mb-8"
+          style={{
+            background: "none", border: "none",
+            fontSize: 13, color: "#5e5c78",
+            cursor: "pointer", display: "flex",
+            alignItems: "center", gap: 6,
+            marginBottom: 32, padding: 0,
+            transition: "color 0.15s"
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = "#9b98b8"}
+          onMouseLeave={e => e.currentTarget.style.color = "#5e5c78"}
         >
           ← Back to dashboard
         </button>
 
-        <div className="bg-[#1a1828] border border-white/10 rounded-xl overflow-hidden">
-
+        <div style={{
+          background: "#1a1828",
+          borderRadius: 20,
+          border: "1px solid rgba(255,255,255,0.07)",
+          overflow: "hidden"
+        }}>
           {/* Header */}
-          <div className="px-5 md:px-8 py-5 md:py-7 border-b border-white/10">
-            <p className="text-[10px] md:text-xs font-semibold text-indigo-500 mb-1 uppercase tracking-wider">
-              New adventure
-            </p>
-            <h2 className="font-serif text-lg md:text-2xl font-bold text-[#f0eeff]">
-              Plan your trip ✈️
-            </h2>
+          <div style={{
+            padding: "28px 32px",
+            borderBottom: "1px solid rgba(255,255,255,0.07)"
+          }}>
+            <p style={{
+              fontSize: 11, fontWeight: 600,
+              color: "#6366f1", marginBottom: 6,
+              letterSpacing: "0.1em", textTransform: "uppercase"
+            }}>New adventure</p>
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 24, fontWeight: 700,
+              color: "#f0eeff"
+            }}>Plan your trip ✈️</h2>
           </div>
 
-          {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="px-5 md:px-8 py-5 md:py-7 flex flex-col gap-4 md:gap-5"
-          >
+          <form onSubmit={handleSubmit} style={{
+            padding: "28px 32px",
+            display: "flex", flexDirection: "column", gap: 20
+          }}>
             {fields.map(field => (
               <div key={field.name}>
-                <label className="block text-[10px] md:text-xs font-semibold text-[#5e5c78] mb-1 uppercase tracking-wide">
-                  {field.label}
-                </label>
-
+                <label style={{
+                  display: "block", fontSize: 11,
+                  fontWeight: 600, color: "#5e5c78",
+                  marginBottom: 7, textTransform: "uppercase",
+                  letterSpacing: "0.07em"
+                }}>{field.label}</label>
                 <input
                   type={field.type}
                   name={field.name}
@@ -75,7 +107,9 @@ export default function CreateTrip() {
                   onChange={handleChange}
                   required
                   placeholder={field.placeholder}
-                  className="w-full bg-[#13121f] border border-white/10 rounded-lg px-3 md:px-4 py-2.5 md:py-3 text-sm text-[#f0eeff] focus:border-indigo-500 focus:outline-none transition"
+                  style={{ ...inputStyle }}
+                  onFocus={e => e.target.style.borderColor = "rgba(99,102,241,0.6)"}
+                  onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.1)"}
                 />
               </div>
             ))}
@@ -83,11 +117,19 @@ export default function CreateTrip() {
             <button
               type="submit"
               disabled={loading}
-              className={`mt-2 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-white transition ${
-                loading
-                  ? "bg-indigo-500/40 cursor-not-allowed"
-                  : "bg-gradient-to-br from-indigo-500 to-purple-500 hover:opacity-90"
-              }`}
+              style={{
+                marginTop: 6,
+                background: loading
+                  ? "rgba(99,102,241,0.4)"
+                  : "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                border: "none",
+                borderRadius: 11,
+                padding: "13px",
+                fontSize: 14, fontWeight: 600,
+                color: "#ffffff",
+                cursor: loading ? "not-allowed" : "pointer",
+                transition: "opacity 0.15s"
+              }}
             >
               {loading ? "Creating..." : "Create trip 🚀"}
             </button>
