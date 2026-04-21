@@ -22,11 +22,14 @@ export default function TripDetail() {
     async function fetchAll() {
       const tripSnap = await getDoc(doc(db, "trips", id))
       if (!tripSnap.exists()) { navigate("/dashboard"); return }
+
       setTrip({ id: tripSnap.id, ...tripSnap.data() })
+
       const [itineraryData, expensesData] = await Promise.all([
         getItineraryItems(id),
         getExpenses(id)
       ])
+
       setItems(itineraryData)
       setExpenses(expensesData)
       setLoading(false)
@@ -35,124 +38,99 @@ export default function TripDetail() {
   }, [id])
 
   if (loading) return (
-    <div style={{ minHeight: "100vh", background: "#0f0e17" }}>
+    <div className="min-h-screen bg-[#0f0e17]">
       <Navbar />
-      <div style={{
-        display: "flex", alignItems: "center",
-        justifyContent: "center",
-        height: 400, color: "#3d3b55", fontSize: 14
-      }}>
+      <div className="flex items-center justify-center h-[300px] text-[#3d3b55] text-sm">
         Loading trip...
       </div>
     </div>
   )
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0f0e17" }}>
+    <div className="min-h-screen bg-[#0f0e17]">
       <Navbar />
-      <div style={{ maxWidth: 740, margin: "0 auto", padding: "48px 24px" }}>
 
+      <div className="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-12">
+
+        {/* Back Button */}
         <button
           onClick={() => navigate("/dashboard")}
-          style={{
-            background: "none", border: "none",
-            fontSize: 13, color: "#5e5c78",
-            cursor: "pointer", display: "flex",
-            alignItems: "center", gap: 6,
-            marginBottom: 32, padding: 0,
-            transition: "color 0.15s"
-          }}
-          onMouseEnter={e => e.currentTarget.style.color = "#9b98b8"}
-          onMouseLeave={e => e.currentTarget.style.color = "#5e5c78"}
+          className="text-xs md:text-sm text-[#5e5c78] hover:text-[#9b98b8] flex items-center gap-2 mb-6 md:mb-8"
         >
           ← Back to dashboard
         </button>
 
-        {/* Trip header */}
-        <div style={{
-          background: "#1a1828",
-          borderRadius: 20,
-          border: "1px solid rgba(255,255,255,0.07)",
-          padding: "28px 32px",
-          marginBottom: 20
-        }}>
-          <p style={{
-            fontSize: 12, color: "#5e5c78",
-            marginBottom: 8, fontWeight: 500
-          }}>📍 {trip.destination}</p>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 28, fontWeight: 700,
-            color: "#f0eeff", marginBottom: 20
-          }}>{trip.name}</h2>
+        {/* Trip Header */}
+        <div className="bg-[#1a1828] border border-white/10 rounded-xl p-5 md:p-8 mb-6">
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <p className="text-xs text-[#5e5c78] mb-2">
+            📍 {trip.destination}
+          </p>
+
+          <h2 className="font-serif text-xl md:text-3xl font-bold text-[#f0eeff] mb-4 md:mb-6">
+            {trip.name}
+          </h2>
+
+          <div className="flex flex-wrap gap-2 md:gap-3">
             {[
               { label: "Dates", value: `${trip.startDate} → ${trip.endDate}` },
               { label: "Budget", value: `₹${Number(trip.budget).toLocaleString()}` },
               { label: "Activities", value: `${items.length} planned` },
             ].map(info => (
-              <div key={info.label} style={{
-                background: "#13121f",
-                border: "1px solid rgba(255,255,255,0.07)",
-                borderRadius: 10,
-                padding: "10px 16px"
-              }}>
-                <p style={{ fontSize: 11, color: "#3d3b55", marginBottom: 3, fontWeight: 500 }}>
+              <div
+                key={info.label}
+                className="bg-[#13121f] border border-white/10 rounded-lg px-3 md:px-4 py-2"
+              >
+                <p className="text-[10px] md:text-xs text-[#3d3b55]">
                   {info.label}
                 </p>
-                <p style={{ fontSize: 14, fontWeight: 600, color: "#f0eeff" }}>{info.value}</p>
+                <p className="text-xs md:text-sm font-semibold text-[#f0eeff]">
+                  {info.value}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Tabs */}
-        <div style={{
-          display: "flex", gap: 4,
-          background: "#1a1828",
-          border: "1px solid rgba(255,255,255,0.07)",
-          borderRadius: 12,
-          padding: 4,
-          marginBottom: 22,
-          width: "fit-content"
-        }}>
+        <div className="flex flex-wrap gap-2 bg-[#1a1828] border border-white/10 rounded-lg p-1 mb-5 w-fit">
           {[
-            { key: "itinerary", label: "🗓️  Itinerary" },
-            { key: "budget", label: "💰  Budget" }
+            { key: "itinerary", label: "🗓️ Itinerary" },
+            { key: "budget", label: "💰 Budget" }
           ].map(tab => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              style={{
-                padding: "8px 20px",
-                borderRadius: 9,
-                fontSize: 13,
-                fontWeight: 600,
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.15s",
-                background: activeTab === tab.key
-                  ? "linear-gradient(135deg, #6366f1, #8b5cf6)"
-                  : "transparent",
-                color: activeTab === tab.key ? "#ffffff" : "#5e5c78"
-              }}
+              className={`px-3 md:px-5 py-2 text-xs md:text-sm font-semibold rounded-md transition ${
+                activeTab === tab.key
+                  ? "bg-gradient-to-br from-indigo-500 to-purple-500 text-white"
+                  : "text-[#5e5c78]"
+              }`}
             >
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* Tab content */}
-        <Suspense fallback={
-          <div style={{ textAlign: "center", padding: 60, color: "#3d3b55" }}>Loading...</div>
-        }>
-          {activeTab === "itinerary"
-            ? <ItineraryTab tripId={id} items={items} setItems={setItems} />
-            : <BudgetTab tripId={id} budget={trip.budget} expenses={expenses} setExpenses={setExpenses} />
+        {/* Tab Content */}
+        <Suspense
+          fallback={
+            <div className="text-center py-10 text-[#3d3b55]">
+              Loading...
+            </div>
           }
+        >
+          {activeTab === "itinerary" ? (
+            <ItineraryTab tripId={id} items={items} setItems={setItems} />
+          ) : (
+            <BudgetTab
+              tripId={id}
+              budget={trip.budget}
+              expenses={expenses}
+              setExpenses={setExpenses}
+            />
+          )}
         </Suspense>
-
       </div>
     </div>
   )

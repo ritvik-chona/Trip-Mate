@@ -11,68 +11,38 @@ export default function Navbar() {
   }
 
   return (
-    <nav style={{
-      background: "#13121f",
-      borderBottom: "1px solid rgba(255,255,255,0.07)",
-      padding: "0 32px",
-      height: 60,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      position: "sticky",
-      top: 0,
-      zIndex: 100,
-    }}>
+    <nav className="bg-[#13121f] border-b border-white/10 px-4 md:px-8 h-14 md:h-[60px] flex items-center justify-between sticky top-0 z-50">
+      
+      {/* Left Logo */}
       <div
         onClick={() => navigate("/dashboard")}
-        style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
+        className="flex items-center gap-2 cursor-pointer"
       >
-        <div style={{
-          width: 32, height: 32,
-          background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-          borderRadius: 9,
-          display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 15
-        }}>✈️</div>
-        <span style={{
-          fontFamily: "'Playfair Display', serif",
-          fontWeight: 700, fontSize: 19,
-          color: "#f0eeff"
-        }}>TripMate</span>
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-gradient-to-br from-indigo-500 to-purple-500">
+          ✈️
+        </div>
+        <span className="font-bold text-base md:text-lg text-[#f0eeff] font-serif">
+          TripMate
+        </span>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-        <div style={{
-          width: 30, height: 30, borderRadius: "50%",
-          background: "rgba(99,102,241,0.15)",
-          border: "1px solid rgba(99,102,241,0.3)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 12, fontWeight: 700, color: "#6366f1"
-        }}>
+      {/* Right Section */}
+      <div className="flex items-center gap-2 md:gap-4">
+
+        {/* Avatar */}
+        <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-xs font-bold text-indigo-400">
           {currentUser?.email?.[0]?.toUpperCase()}
         </div>
-        <span style={{ fontSize: 13, color: "#5e5c78" }}>{currentUser?.email}</span>
+
+        {/* Email (hidden on small screens) */}
+        <span className="hidden sm:block text-xs md:text-sm text-[#5e5c78] max-w-[120px] truncate">
+          {currentUser?.email}
+        </span>
+
+        {/* Logout */}
         <button
           onClick={handleLogout}
-          style={{
-            background: "none",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: 8,
-            padding: "5px 14px",
-            fontSize: 13,
-            fontWeight: 500,
-            color: "#9b98b8",
-            cursor: "pointer",
-            transition: "all 0.15s"
-          }}
-          onMouseEnter={e => {
-            e.target.style.borderColor = "rgba(248,113,113,0.4)"
-            e.target.style.color = "#f87171"
-          }}
-          onMouseLeave={e => {
-            e.target.style.borderColor = "rgba(255,255,255,0.1)"
-            e.target.style.color = "#9b98b8"
-          }}
+          className="text-xs md:text-sm px-2 md:px-4 py-1 border border-white/10 rounded-md text-[#9b98b8] hover:text-red-400 hover:border-red-400 transition"
         >
           Logout
         </button>
