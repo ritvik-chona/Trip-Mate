@@ -38,3 +38,12 @@ input, select, textarea, button {
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) opacity(0.4);
 }
+
+/* Responsive helpers */
+@media (max-width: 600px) {
+  .grid-3-col { grid-template-columns: 1fr !important; }
+  .grid-2-col { grid-template-columns: 1fr !important; }
+  .hide-mobile { display: none !important; }
+  .stack-mobile { flex-direction: column !important; align-items: flex-start !important; }
+  .full-mobile { width: 100% !important; }
+}
